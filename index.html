@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Physicswallah</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #000;
+            margin: 0;
+        }
+
+        #header {
+            text-align: center;
+            font-family: 'Maldives', sans-serif;
+            color: black;
+            padding: 20px;
+        }
+
+        #menu-bar {
+            background-color: #333;
+            width: 200px;
+            position: fixed;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #menu-items {
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            margin: 10px 0;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: white;
+        }
+
+        .menu-item:hover {
+            background-color: #555;
+        }
+
+        #content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .batch {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .batch-image {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .view-now-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .subject-shapes {
+            display: flex;
+            justify-content: center;
+        }
+
+        .subject-shape {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .lessons-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .lessons-table th, .lessons-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .view-content-button {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-bar">
+        <div id="menu-items">
+            <div class="menu-item" onclick="showBatches()">Batches</div>
+            <div class="menu-item">Contact Us</div>
+            <div class="menu-item">Telegram Channel</div>
+            <div class="menu-item">Copyright Disclaimer</div>
+            <div class="menu-item" onclick="toggleBackground()">Switch background</div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="header">
+            <h1>Physicswallah</h1>
+        </div>
+    </div>
+
+    <script>
+        let isDarkBackground = false;
+
+        function toggleBackground() {
+            isDarkBackground = !isDarkBackground;
+            document.body.style.backgroundColor = isDarkBackground ? '#333' : '#f2f2f2';
+        }
+
+        function showBatches() {
+            document.getElementById('content').innerHTML = '';
+            const batches = [
+                {
+                    name: "Arjuna Jee 1.0",
+                    image: "https://i.ytimg.com/vi/A1JdXKKKOwc/maxresdefault.jpg",
+                    subjects: {
+                        "Physics": [
+                            "Units and Dimensions",
+                            "Basics Mathematics",
+                            "Motion in 1 Dimensions",
+                            "Motion in 2 Dimensions",
+                            'Newton Laws of Motion",
+                            "Work, Power and Energy",
+                            "Rotational Motion"
+                        ],
+                        "Chemistry": [
+                            "Mole Concept",
+                            "Some Basics Concept of Chemistry",
+                            "Chemical Bonding"
+                        ],
+                        "Mathematics": [
+                            "Basics Mathematics",
+                            "Sets theory",
+                            "Relation and Function"
+                        ]
+                    }
+                },
+                {
+                    name: "Lakshya Jee 1.0",
+                    image: "https://th.bing.com/th/id/OIP.8YsP5_uWGyzv6Z2QtUuV1AHaDt?w=337&h=174&c=7&r=0&o=5&pid=1.7",
+                    subjects: {
+                        "Physics": [
+                            "Electrostatics",
+                            "Electro Potential and Capacitance"
+                        ],
+                        "Mathematics": [
+                            "Relation and Functions",
+                            "Inverse Trigonometric Function",
+                            "Matrices",
+                            "Determinants",
+                            "Limits, Continuity and Differentiability",
+                            "Application of Derivative"
+                        ],
+                        "Chemistry": [
+                            "Solutions",
+                            "Chemical Kinematics"
+                        ]
+                    }
+                },
+                {
+                    name: "Sachin Sir Khazana",
+                    image: "https://images.moneycontrol.com/static-mcnews/2023/05/PhysicsWallah_1-1.png?impolicy=website&width=1600&height=900",
+                    subjects: {
+                        "Mathematics": [
+                            "Relation and Function",
+                            "Inverse Trigonometric Function"
+                        ]
+                    }
+                }
+            ];
+
+            batches.forEach((batch, index) => {
+                const batchDiv = document.createElement('div');
+                batchDiv.classList.add('batch');
+                const image = document.createElement('img');
+                image.src = batch.image;
+                image.classList.add('batch-image');
+                const viewNowButton = document.createElement('button');
+                viewNowButton.textContent = "View Now";
+                viewNowButton.classList.add('view-now-button');
+
+                viewNowButton.addEventListener('click', () => {
+                    showSubjects(batch.name, batch.subjects);
+                });
+
+                batchDiv.appendChild(image);
+                batchDiv.appendChild(document.createElement('br'));
+                const batchNameElement = document.createElement('b');
+batchNameElement.textContent = batch.name;
+batchDiv.appendChild(batchNameElement);
+                batchDiv.appendChild(document.createElement('br'));
+                batchDiv.appendChild(viewNowButton);
+                document.getElementById('content').appendChild(batchDiv);
+            });
+        }
+
+        function showSubjects(batchName, subjects) {
+            document.getElementById('content').innerHTML = '';
+            const subjectShapesDiv = document.createElement('div');
+            subjectShapesDiv.classList.add('subject-shapes');
+
+            for (const subject in subjects) {
+                const subjectShape = document.createElement('div');
+                subjectShape.classList.add('subject-shape');
+                subjectShape.textContent = subject;
+
+                subjectShape.addEventListener('click', () => {
+                    showLessons(batchName, subject, subjects[subject]);
+                });
+
+                subjectShapesDiv.appendChild(subjectShape);
+            }
+
+            document.getElementById('content').appendChild(subjectShapesDiv);
+        }
+
+        function showLessons(batchName, subject, lessons) {
+            document.getElementById('content').innerHTML = '';
+
+            const lessonsTable = document.createElement('table');
+            lessonsTable.classList.add('lessons-table');
+
+            const headerRow = lessonsTable.insertRow(0);
+            const srNoHeader = headerRow.insertCell(0);
+            srNoHeader.textContent = "Sr. No.";
+            const lessonNameHeader = headerRow.insertCell(1);
+            lessonNameHeader.textContent = "Lesson Name";
+            const contentHeader = headerRow.insertCell(2);
+            contentHeader.textContent = "Content";
+
+            lessons.forEach((lesson, index) => {
+                const row = lessonsTable.insertRow(index + 1);
+                const srNoCell = row.insertCell(0);
+                srNoCell.textContent = index + 1;
+                const lessonNameCell = row.insertCell(1);
+                lessonNameCell.textContent = lesson;
+                const contentCell = row.insertCell(2);
+                const viewContentButton = document.createElement('button');
+                viewContentButton.textContent = "View Content";
+                viewContentButton.classList.add('view-content-button');
+                viewContentButton.addEventListener('click', () => {
+                    showContent(batchName, subject, lesson);
+                });
+                contentCell.appendChild(viewContentButton);
+            });
+
+            document.getElementById('content').appendChild(lessonsTable);
+        }
+
+        function showContent(batchName, subject, lesson) {
+            const contentPaths = {
+                "Sachin Sir Khazana": {
+                    Mathematics: {
+                        "Relation and Function": "C:/Users/sufya/OneDrive/Documents/New folder/home21.html",
+                        "Inverse Trigonometric Function": "C:/Users/sufya/OneDrive/Documents/New folder/home22.html",
+                    }
+                },
+                "Arjuna Jee 1.0": {
+                    Mathematics: {
+                        "Basics Mathematics": "C:/Users/sufya/OneDrive/Desktop/New%20Text%20Document%20(3).html",
+                        "Sets theory": "C:/Users/sufya/OneDrive/Documents/New%20folder/home3.html",
+                        "Relation and Function": "C:/Users/sufya/OneDrive/Documents/New%20folder/home4.html",
+                    },
+                    Chemistry: {
+                        "Mole Concept": "C:/Users/sufya/OneDrive/Documents/New%20folder/home5.html",
+                        "Some Basics concept of Chemistry": "C:/Users/sufya/OneDrive/Documents/New%20folder/home6.html",
+                        "Chemical Bonding": "C:/Users/sufya/OneDrive/Documents/New%20folder/home7.html",
+                    },
+                    Physics: {
+                        "Units and Dimensions": "C:/Users/sufya/OneDrive/Documents/New%20folder/home8.html",
+                        "Basics Mathematics": "C:/Users/sufya/OneDrive/Documents/New%20folder/home9.html",
+                        "Motion in 1 Dimensions": "C:/Users/sufya/OneDrive/Documents/New%20folder/home10.html",
+                        "Motion in 2 Dimensions": "C:/Users/sufya/OneDrive/Documents/New%20folder/home10.html",
+                        "Newton Laws of Motion": "C:/Users/sufya/OneDrive/Documents/New%20folder/home10.html", 
+                        "Work, Power and Energy": "C:/Users/sufya/OneDrive/Documents/New%20folder/home10.html",
+                        "Rotational Motion": "C:/Users/sufya/OneDrive/Documents/New%20folder/home10.html",
+                    }
+                },
+                "Lakshya Jee 1.0": {
+                    Physics: {
+                        "Electrostatics": "C:/Users/sufya/OneDrive/Documents/New%20folder/home11.html",
+                        "Electro Potential and Capacitance": "C:/Users/sufya/OneDrive/Documents/New%20folder/home12.html",
+                    },
+                    Mathematics: {
+                        "Relation and Function": "C:/Users/sufya/OneDrive/Documents/New%20folder/home13.html",
+                        "Inverse Trigonometric Function": "C:/Users/sufya/OneDrive/Documents/New%20folder/home14.html",
+                        "Matrices": "C:/Users/sufya/OneDrive/Documents/New%20folder/home15.html",
+                        "Determinants": "C:/Users/sufya/OneDrive/Documents/New%20folder/home16.html",
+                        "Limits, Continuity and Differentiability": "C:/Users/sufya/OneDrive/Documents/New%20folder/home17.html",
+                        "Application of Derivative": "C:/Users/sufya/OneDrive/Documents/New%20folder/home18.html",
+                    },
+                    Chemistry: {
+                        "Solutions": "C:/Users/sufya/OneDrive/Documents/New%20folder/home19.html",
+                        "Chemical Kinematics": "C:/Users/sufya/OneDrive/Documents/New%20folder/home20.html",
+                    }
+                }
+            };
+
+            const contentPath = contentPaths[batchName]?.[subject]?.[lesson];
+
+            if (contentPath) {
+                // Open the content in a new tab
+                window.open(contentPath, '_blank');
+            } else {
+                alert('Content not found.');
+            }
+        }
+    </script>
+</body>
+</html>
